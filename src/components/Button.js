@@ -1,33 +1,53 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const Input = styled.button`
-	background-color:#0070d2;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:sans-serif;
-	font-size: ${props => 
-		props.fontSize ? props.fontSize : 12
-	}px;
-	padding: 8px 16px 9px 16px;
-	text-decoration:none;
-	border: 0;
-	border-radius: 0;
-	outline: none;
-	&:hover{
-		background-color:#0088ff;
+const disabledStyles = css`
+	color: rgba(0,0,0,.25);
+	cursor: not-allowed;
+
+	&:hover {
+		background-color: white;
 	}
 `;
 
-class Button extends Component {
-	render(){
-		return (
-			<Input fontSize="20">
-				{this.props.value}
-			</Input>
-		);
-	}
-}
+const Input = styled.button`
+	cursor: pointer;
+	position: relative;
+    display: inline-block;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+    line-height: 1.875rem;
+    text-decoration: none;
+    color: #0070d2;
+    white-space: normal;
+	user-select: none;
+	padding: 0 1rem;
+    text-align: center;
+    border: 1px solid #dddbda;
+    transition: border 0.15s linear;
+    background-color: white;
 
-export default Button;
+	font-size: ${props => props.fontSize}px;
+
+	&:hover{
+		background-color: #0088ff;
+	}
+
+	&:active {
+		color: #00396b;
+		background-color: #eef1f6;
+	}
+
+	&:hover,
+	&:focus {
+		background-color: #f4f6f9;
+	}
+
+	${({ disabled }) => disabled && disabledStyles }}
+`;
+
+export default ({ value, disabled = false, fontSize = 12 }) => (
+	<Input disabled={disabled} fontSize={fontSize}>
+		{value}
+	</Input>
+)
